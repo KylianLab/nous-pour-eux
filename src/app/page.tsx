@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Heart,
   PawPrint,
@@ -20,18 +21,16 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-secondary via-secondary-dark to-secondary overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 text-white">
-            <PawPrint className="h-32 w-32 rotate-12" />
-          </div>
-          <div className="absolute bottom-20 right-10 text-white">
-            <PawPrint className="h-48 w-48 -rotate-12" />
-          </div>
-          <div className="absolute top-40 right-1/3 text-white">
-            <Heart className="h-24 w-24 rotate-6" />
-          </div>
-        </div>
+      <section className="relative overflow-hidden">
+        <Image
+          src="/images/hero_adoption_16x9.jpg"
+          alt="Chiens du refuge"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-black/60" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36 relative">
           <div className="max-w-3xl">
