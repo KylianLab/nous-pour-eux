@@ -13,8 +13,9 @@ import AnimalCard from "@/components/AnimalCard";
 
 export const dynamic = "force-dynamic";
 
-export default function HomePage() {
-  const recentAnimals = getAllAnimals({ status: "disponible" }).slice(0, 3);
+export default async function HomePage() {
+  const allAvailable = await getAllAnimals({ status: "disponible" });
+  const recentAnimals = allAvailable.slice(0, 3);
 
   return (
     <>

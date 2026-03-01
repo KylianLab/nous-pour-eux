@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     status: searchParams.get("status") || undefined,
   };
 
-  const animals = getAllAnimals(filters);
+  const animals = await getAllAnimals(filters);
   return NextResponse.json(animals);
 }
 
@@ -24,6 +24,6 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const animal = createAnimal(body);
+  const animal = await createAnimal(body);
   return NextResponse.json(animal, { status: 201 });
 }

@@ -1,47 +1,4 @@
-import Database from "better-sqlite3";
-import path from "path";
-
-const DB_PATH = path.join(process.cwd(), "nous-pour-eux.db");
-
-let db: Database.Database;
-
-export function getDb(): Database.Database {
-  if (!db) {
-    db = new Database(DB_PATH);
-    db.pragma("journal_mode = WAL");
-    db.pragma("foreign_keys = ON");
-    initDb(db);
-  }
-  return db;
-}
-
-function initDb(db: Database.Database) {
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS animals (
-      id TEXT PRIMARY KEY,
-      name TEXT NOT NULL,
-      species TEXT NOT NULL DEFAULT 'chien',
-      breed TEXT,
-      age TEXT,
-      gender TEXT NOT NULL CHECK(gender IN ('male', 'femelle')),
-      size TEXT CHECK(size IN ('petit', 'moyen', 'grand')),
-      description TEXT,
-      story TEXT,
-      image_url TEXT,
-      images TEXT DEFAULT '[]',
-      status TEXT NOT NULL DEFAULT 'disponible' CHECK(status IN ('disponible', 'reserve', 'adopte')),
-      vaccinated INTEGER DEFAULT 0,
-      sterilized INTEGER DEFAULT 0,
-      microchipped INTEGER DEFAULT 0,
-      good_with_dogs INTEGER DEFAULT 1,
-      good_with_cats INTEGER DEFAULT 0,
-      good_with_kids INTEGER DEFAULT 1,
-      arrival_date TEXT,
-      created_at TEXT DEFAULT (datetime('now')),
-      updated_at TEXT DEFAULT (datetime('now'))
-    );
-  `);
-}
+import mysql from "mysql2/promise";
 
 export type Animal = {
   id: string;
@@ -66,3 +23,46 @@ export type Animal = {
   created_at: string;
   updated_at: string;
 };
+
+let pool: mysql.Pool;
+
+export function getPool(): mysql.Pool {
+  if (!pool) {
+    pool = mysql.createPool({
+      uri: process.env.DATABASE_URL,
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0,
+    });
+  }
+  return pool;
+}
+
+export async function initDb() {
+  const db = getPool();
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS animals (
+      id VARCHAR(36) PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      species VARCHAR(50) NOT NULL DEFAULT 'chien',
+      breed VARCHAR(255),
+      age VARCHAR(50),
+      gender ENUM('male', 'femelle') NOT NULL,
+      size ENUM('petit', 'moyen', 'grand'),
+      description TEXT,
+      story TEXT,
+      image_url VARCHAR(500),
+      images JSON DEFAULT ('[]'),
+      status ENUM('disponible', 'reserve', 'adopte') NOT NULL DEFAULT 'disponible',
+      vaccinated TINYINT(1) DEFAULT 0,
+      sterilized TINYINT(1) DEFAULT 0,
+      microchipped TINYINT(1) DEFAULT 0,
+      good_with_dogs TINYINT(1) DEFAULT 1,
+      good_with_cats TINYINT(1) DEFAULT 0,
+      good_with_kids TINYINT(1) DEFAULT 1,
+      arrival_date DATE,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    )
+  `);
+}

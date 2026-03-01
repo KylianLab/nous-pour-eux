@@ -23,13 +23,14 @@ export default async function AnimalDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const animal = getAnimalById(id);
+  const animal = await getAnimalById(id);
 
   if (!animal) {
     notFound();
   }
 
-  const otherAnimals = getAllAnimals({ status: "disponible" })
+  const allAvailable = await getAllAnimals({ status: "disponible" });
+  const otherAnimals = allAvailable
     .filter((a) => a.id !== animal.id)
     .slice(0, 3);
 

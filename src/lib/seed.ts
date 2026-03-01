@@ -1,4 +1,4 @@
-import { getDb } from "./db";
+import { getPool, initDb } from "./db";
 import { v4 as uuidv4 } from "uuid";
 
 const animals = [
@@ -156,44 +156,45 @@ const animals = [
   },
 ];
 
-function seed() {
-  const db = getDb();
+async function seed() {
+  await initDb();
+  const db = getPool();
 
   // Clear existing data
-  db.exec("DELETE FROM animals");
-
-  const now = new Date().toISOString();
+  await db.execute("DELETE FROM animals");
 
   for (const animal of animals) {
-    db.prepare(
-      `INSERT INTO animals (id, name, species, breed, age, gender, size, description, story, image_url, images, status, vaccinated, sterilized, microchipped, good_with_dogs, good_with_cats, good_with_kids, arrival_date, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    ).run(
-      uuidv4(),
-      animal.name,
-      animal.species,
-      animal.breed,
-      animal.age,
-      animal.gender,
-      animal.size,
-      animal.description,
-      animal.story,
-      null,
-      "[]",
-      animal.status,
-      animal.vaccinated,
-      animal.sterilized,
-      animal.microchipped,
-      animal.good_with_dogs,
-      animal.good_with_cats,
-      animal.good_with_kids,
-      now,
-      now,
-      now
+    await db.execute(
+      `INSERT INTO animals (id, name, species, breed, age, gender, size, description, story, image_url, images, status, vaccinated, sterilized, microchipped, good_with_dogs, good_with_cats, good_with_kids)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        uuidv4(),
+        animal.name,
+        animal.species,
+        animal.breed,
+        animal.age,
+        animal.gender,
+        animal.size,
+        animal.description,
+        animal.story,
+        null,
+        "[]",
+        animal.status,
+        animal.vaccinated,
+        animal.sterilized,
+        animal.microchipped,
+        animal.good_with_dogs,
+        animal.good_with_cats,
+        animal.good_with_kids,
+      ]
     );
   }
 
   console.log(`Seeded ${animals.length} animals successfully!`);
+  process.exit(0);
 }
 
-seed();
+seed().catch((err) => {
+  console.error("Seed failed:", err);
+  process.exit(1);
+});
