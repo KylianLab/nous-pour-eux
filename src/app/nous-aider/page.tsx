@@ -39,8 +39,9 @@ export default function NousAiderPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-secondary to-secondary-dark py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative bg-cover bg-center py-16" style={{ backgroundImage: "url('https://digitedia.be/hero_adoption_16x9.jpg')" }}>
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           <div className="inline-flex items-center gap-2 bg-primary/20 text-primary-light px-4 py-2 rounded-full text-sm font-medium mb-4">
             <HandHeart className="h-4 w-4" />
             Solidarité
