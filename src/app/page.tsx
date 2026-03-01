@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   Heart,
   PawPrint,
@@ -21,15 +20,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <Image
-          src="/images/hero_adoption_16x9.jpg"
-          alt="Chiens du refuge"
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
+      <section className="relative overflow-hidden bg-cover bg-center" style={{ backgroundImage: "url('https://digitedia.be/hero_adoption_16x9.jpg')" }}>
         <div className="absolute inset-0 bg-black/60" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36 relative">
