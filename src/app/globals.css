@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
 
 @theme {
   --color-primary: #dc2626;
@@ -14,5 +15,9 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Nunito", system-ui, sans-serif;
 }
 

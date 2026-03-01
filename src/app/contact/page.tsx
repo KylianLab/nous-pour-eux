@@ -1,15 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Mail,
-  MapPin,
-  Phone,
-  Heart,
-  Send,
-  CreditCard,
-  PawPrint,
-} from "lucide-react";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -210,78 +202,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Donation Section */}
-      <section id="don" className="py-16 bg-warm-bg">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <Heart className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h2 className="text-3xl font-extrabold text-secondary mb-4">
-              Faire un don
-            </h2>
-            <p className="text-gray-600 text-lg max-w-xl mx-auto">
-              Chaque contribution nous permet de sauver, soigner et nourrir les
-              chiens du refuge. Votre générosité fait la différence.
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl p-8 md:p-12 border border-gray-100 shadow-sm">
-            <div className="text-center">
-              <div className="bg-primary/10 rounded-xl p-4 w-fit mx-auto mb-6">
-                <CreditCard className="h-10 w-10 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold text-secondary mb-2">
-                Virement bancaire
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Effectuez un don directement sur notre compte :
-              </p>
-              <div className="bg-warm-bg rounded-xl p-6 max-w-sm mx-auto mb-6">
-                <p className="text-sm text-gray-500 mb-1">IBAN</p>
-                <p className="text-2xl font-mono font-bold text-secondary tracking-wide">
-                  BE35 3632 1737 6737
-                </p>
-                <p className="text-sm text-gray-500 mt-2">
-                  Communication : &quot;Don Nous pour Eux&quot;
-                </p>
-              </div>
-              <p className="text-sm text-gray-500">
-                Nous pour Eux asbl - N° Entreprise : 597.657.382
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                amount: "15€",
-                description: "Nourrit un chien pendant 1 semaine",
-                icon: PawPrint,
-              },
-              {
-                amount: "50€",
-                description: "Finance la vaccination d'un chien",
-                icon: Heart,
-              },
-              {
-                amount: "150€",
-                description: "Couvre la stérilisation d'un chien",
-                icon: PawPrint,
-              },
-            ].map((tier) => (
-              <div
-                key={tier.amount}
-                className="bg-white rounded-2xl p-6 border border-gray-100 text-center"
-              >
-                <tier.icon className="h-6 w-6 text-primary mx-auto mb-3" />
-                <p className="text-3xl font-extrabold text-primary mb-2">
-                  {tier.amount}
-                </p>
-                <p className="text-gray-600 text-sm">{tier.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </>
   );
 }

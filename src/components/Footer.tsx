@@ -59,6 +59,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/nous-aider"
+                  className="text-gray-300 hover:text-primary-light transition-colors"
+                >
+                  Nous aider
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/contact"
                   className="text-gray-300 hover:text-primary-light transition-colors"
                 >
@@ -109,7 +117,7 @@ export default function Footer() {
               </p>
             </div>
             <Link
-              href="/contact#don"
+              href="/nous-aider#don"
               className="mt-4 inline-block bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-semibold transition-colors text-sm"
             >
               Faire un don

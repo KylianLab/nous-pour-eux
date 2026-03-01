@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/adoption", label: "À l'adoption" },
   { href: "/refuge", label: "Le Refuge" },
   { href: "/a-propos", label: "Qui sommes-nous ?" },
+  { href: "/nous-aider", label: "Nous aider" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -43,7 +44,7 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              href="/contact#don"
+              href="/nous-aider#don"
               className="ml-4 inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-5 py-2.5 rounded-full font-semibold transition-colors"
             >
               <Heart className="h-4 w-4" />
@@ -77,7 +78,7 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              href="/contact#don"
+              href="/nous-aider#don"
               onClick={() => setIsOpen(false)}
               className="mt-2 inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white px-5 py-3 rounded-full font-semibold transition-colors"
             >
